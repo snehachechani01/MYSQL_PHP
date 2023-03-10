@@ -8,22 +8,18 @@ $tablename = "Post";
 $id = $_POST["id"];
 $posttitle = $_POST["posttitle"];
 $postdescription = $_POST["postdescription"];
-$conn = mysqli_connect("localhost", "admin", "admin");
+// $conn = mysqli_connect("localhost", "admin", "admin");
 
 echo "<div>";
-//CREATE THE DATABASE
-$sql = "CREATE DATABASE if not exists myDB";
-if ($conn->query($sql) === TRUE) {
-  echo "Database created successfully";
-} else {
-  echo "Error creating database: " . $conn->error;
-}
-
 $conn = mysqli_connect("localhost", "admin", "admin", $dbname);
 //Create the table
 
 $createtable = "CREATE TABLE IF NOT EXISTS  $tablename(`id` INT(6) PRIMARY KEY, `PostTitle` VARCHAR(30), `PostDescription` VARCHAR(50))";
-
+if (mysqli_query($conn, $createtable)) {
+    echo "<p>table created sucessfully</p>";
+} else {
+    echo "<p>Error creating table: " . mysqli_error($conn) . "</p>";
+}
 
 
 //Insert data into the table
@@ -34,6 +30,7 @@ if (mysqli_query($conn, $inserttable)) {
     echo "<p>Error inserting data: " . mysqli_error($conn) . "</p>";
 }
 echo "</div>";
+
 
 ?>
 
@@ -98,7 +95,7 @@ echo "</div>";
             <input type="submit" value="Show Table" onclick="document.forms['form'].action='show.php'">
             <input type="submit" value="Update Table" onclick="document.forms['form'].action='update.html'">
             <input type="submit" value="Delete Table" onclick="document.forms['form'].action='delete.html'">
-
+            <input type="submit" value="Insert Table" onclick="document.forms['form'].action='post.html'">
         </form>
     </div>
 
