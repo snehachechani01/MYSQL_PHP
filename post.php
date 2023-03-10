@@ -11,7 +11,13 @@ $postdescription = $_POST["postdescription"];
 $conn = mysqli_connect("localhost", "admin", "admin");
 
 echo "<div>";
-
+//CREATE THE DATABASE
+$sql = "CREATE DATABASE if not exists myDB";
+if ($conn->query($sql) === TRUE) {
+  echo "Database created successfully";
+} else {
+  echo "Error creating database: " . $conn->error;
+}
 
 $conn = mysqli_connect("localhost", "admin", "admin", $dbname);
 //Create the table
